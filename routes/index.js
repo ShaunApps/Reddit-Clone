@@ -20,3 +20,13 @@ router.get('/posts', function(req, res, next) {
     res.json(posts);
   });
 });
+
+router.post('/posts', function(req, res, next) {
+  var post = new Post(req.body);
+
+  post.save(function(err, post){
+    if(err){ return next(err); }
+
+    res.json(post);
+  });
+});
