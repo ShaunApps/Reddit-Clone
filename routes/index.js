@@ -40,4 +40,8 @@ router.param('post', function(req, res, next, id) {
   });
 });
 
+router.get('/posts/:post', function(req, res) {
+  res.json(req.post);
+});
+
 module.exports = router;
