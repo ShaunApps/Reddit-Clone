@@ -10,6 +10,7 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// GET route to retrieve posts
 router.get('/posts', function(req, res, next) {
   Post.find(function(err, posts){
     if(err){ return next(err); }
@@ -18,6 +19,7 @@ router.get('/posts', function(req, res, next) {
   });
 });
 
+// POST route for creating posts
 router.post('/posts', function(req, res, next) {
   var post = new Post(req.body);
 
@@ -28,6 +30,7 @@ router.post('/posts', function(req, res, next) {
   });
 });
 
+// this is a route for preloading post objects
 router.param('post', function(req, res, next, id) {
   var query = Post.findById(id);
 
@@ -40,10 +43,12 @@ router.param('post', function(req, res, next, id) {
   });
 });
 
+// this route returns a single post
 router.get('/posts/:post', function(req, res) {
   res.json(req.post);
 });
 
+// this is the route for the upvote method 
 router.put('/posts/:post/upvote', function(req, res, next) {
   req.post.upvote(function(err, post){
     if (err) { return next(err); }
