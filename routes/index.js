@@ -48,7 +48,7 @@ router.get('/posts/:post', function(req, res) {
   res.json(req.post);
 });
 
-// this is the route for the upvote method 
+// this is the route for the upvote method
 router.put('/posts/:post/upvote', function(req, res, next) {
   req.post.upvote(function(err, post){
     if (err) { return next(err); }
@@ -57,6 +57,8 @@ router.put('/posts/:post/upvote', function(req, res, next) {
   });
 });
 
+
+// comments route for a particular post
 router.post('/posts/:post/comments', function(req, res, next) {
   var comment = new Comment(req.body);
   comment.post = req.post;
@@ -72,5 +74,10 @@ router.post('/posts/:post/comments', function(req, res, next) {
     });
   });
 });
+
+// this should be the route for the comments upvote method
+router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+
+})
 
 module.exports = router;
