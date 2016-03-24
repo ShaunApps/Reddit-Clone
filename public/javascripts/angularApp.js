@@ -27,6 +27,12 @@ o.upvote = function(post) {
     });
 };
 
+o.get = function(id) {
+  return $http.get('/posts/' + id).then(function(res){
+    return res.data;
+  });
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -46,7 +52,12 @@ app.config([
       .state('posts', {
         url: '/posts/{id}',
         templateUrl: '/posts.html',
-        controller: 'PostsCtrl'
+        controller: 'PostsCtrl',
+        resolve: {
+          post: ['$stateParams', 'posts', function($stateParams, posts) {
+            return posts.get($stateParams.id);
+          }]
+        }
       });
 
     $urlRouterProvider.otherwise('home');
