@@ -14,6 +14,12 @@ o.getAll = function() {
   });
 };
 
+o.create = function(post) {
+  return $http.post('/posts', post).success(function(data){
+    o.posts.push(data);
+  });
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
