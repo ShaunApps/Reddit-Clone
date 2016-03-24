@@ -78,9 +78,17 @@ router.post('/posts/:post/comments', function(req, res, next) {
 
 // this route will preload the comments for a specific post
 router.param('comment', function(req, res, next, id) {
-  
+  var query = Comment.findById(id);
 
+  query.exec(function (err, comment){
+    if (err) { return next(err); }
+    if (!post) { return next(new Error('can\'t find comment')); }
+
+    req.comment = comment;
+    return next();
+  });
 });
+
 // this should be the route for the comments upvote method
 router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
   req.post.
