@@ -75,8 +75,15 @@ router.post('/posts/:post/comments', function(req, res, next) {
   });
 });
 
+
+// this route will preload the comments for a specific post
+router.param('comment', function(req, res, next, id) {
+  
+
+});
 // this should be the route for the comments upvote method
 router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
+  req.post.
 
 })
 
