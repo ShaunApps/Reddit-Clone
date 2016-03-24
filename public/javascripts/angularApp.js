@@ -112,4 +112,7 @@ app.controller('MainCtrl', [
         });
         $scopes.body = '';
       };
+      $scope.incrementUpvotes = function(comment){
+        posts.upvoteComment(post, comment);
+      };
     }]);
