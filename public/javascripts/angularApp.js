@@ -8,6 +8,12 @@ app.factory('posts', [function(){
   return o;
 }]);
 
+o.getAll = function() {
+  return $http.get('/posts').success(function(data){
+    angular.copy(data, o.posts);
+  });
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
