@@ -20,6 +20,13 @@ o.create = function(post) {
   });
 };
 
+o.upvote = function(post) {
+  return $http.put('/posts/' + post._id + '/upvote')
+    .success(function(data){
+      post.upvotes += 1;
+    });
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
