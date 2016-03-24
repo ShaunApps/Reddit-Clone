@@ -82,7 +82,7 @@ router.param('comment', function(req, res, next, id) {
 
   query.exec(function (err, comment){
     if (err) { return next(err); }
-    if (!post) { return next(new Error('can\'t find comment')); }
+    if (!comment) { return next(new Error('can\'t find comment')); }
 
     req.comment = comment;
     return next();
@@ -91,8 +91,11 @@ router.param('comment', function(req, res, next, id) {
 
 // this should be the route for the comments upvote method
 router.put('/posts/:post/comments/:comment/upvote', function(req, res, next) {
-  req.post.
+  req.comment.upvote(function(err, comment){
+    if (err) { return next(err); }
 
-})
+    res.json(comment);
+  });
+});
 
 module.exports = router;
