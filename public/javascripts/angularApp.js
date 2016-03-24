@@ -37,6 +37,13 @@ o.addComment = function(id, comment) {
   return $http.post('/posts/' + id + '/comments', comment);
 };
 
+o.upvoteComment = function(post, comment) {
+  return $http.put('/posts/' + post._id + '/comments/'+ comment._id + '/upvote')
+    .success(function(data){
+      comment.upvotes += 1;
+    });
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -97,12 +104,12 @@ app.controller('MainCtrl', [
       $scope.post = post;
       $scope.addComment = function(){
         if($scope.body === '') { return; }
-        $scope.post.comments.push({
+        posts.addComment(post._id, {
           body: $scope.body,
           author: 'user',
-          upvotes: 0
+        }).success(function(comment) {
+          $scope.post.comments.push(comment);
         });
         $scopes.body = '';
       };
-
     }]);
