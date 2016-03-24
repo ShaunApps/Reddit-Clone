@@ -33,6 +33,10 @@ o.get = function(id) {
   });
 };
 
+o.addComment = function(id, comment) {
+  return $http.post('/posts/' + id + '/comments', comment);
+};
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
@@ -84,11 +88,13 @@ app.controller('MainCtrl', [
     };
   }]);
 
+// refactored controller, line 93 down may need further modification
   app.controller('PostsCtrl', [
     '$scope',
-    '$stateParams',
     'posts',
-    function($scope, $stateParams, posts){
+    'post',
+    function($scope, posts, post){
+      $scope.post = post;
       $scope.addComment = function(){
         if($scope.body === '') { return; }
         $scope.post.comments.push({
