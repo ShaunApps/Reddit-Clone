@@ -22,4 +22,19 @@ UserSchema.methods.validPassword = function(password) {
 
   return this.hash === hash;
 }
+
+UserSchema.methods.generateJWT = function() {
+
+  // set expiration to 30 days
+  var today = new Date();
+  var exp = new Date(today);
+  exp.setDate(today.getDate() + 30);
+
+  return jwt.sign({
+    _id: this._id,
+    username: this.username,
+    exp: parseInt(exp.getTime() / 1000),
+  }, 'SECRET');  // this should be kept secret in environment 
+};
+
 mongoose.model('User', UserSchema);
