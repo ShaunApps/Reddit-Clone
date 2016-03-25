@@ -44,6 +44,12 @@ o.upvoteComment = function(post, comment) {
     });
 };
 
+app.factory('auth', ['$http', '$window', function($http, $window){
+  var auth = {};
+
+  return auth;
+}])
+
 app.config([
   '$stateProvider',
   '$urlRouterProvider',
