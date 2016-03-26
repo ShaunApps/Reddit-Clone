@@ -93,7 +93,7 @@ auth.logIn = function(user){
 
 auth.logOut = function(){
   $window.localStorage.removeItem('flapper-news-token');
-};
+};g
 
 app.config([
   '$stateProvider',
@@ -167,3 +167,27 @@ app.controller('MainCtrl', [
         posts.upvoteComment(post, comment);
       };
     }]);
+
+  app.controller('AuthCtrl', [
+    '$scope',
+    '$state',
+    '$auth',
+    function($scope, $state, auth){
+      $scope.user = {};
+
+      $scope.register = function(){
+        auth.register($scope.user).error(function(error){
+          $scope.error = error;
+        }).then(function(){
+          $state.go('home');
+        });
+      };
+
+      $scope.logIn = function(){
+        auth.logIn($scope.user).error(function(error){
+          $scope.error = error;
+        }).then(function(){
+          $state.go('home');
+        });
+      };
+  }])
