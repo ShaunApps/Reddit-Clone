@@ -71,7 +71,10 @@
       </div>
       <span>
         <a href="#/posts/{{post._id}}">Comments</a>
-      </spam>
+      </span>
+      <span ng-show="post.author">
+        posted by <a>{{post.author}}</a> |
+      </span>
     </script>
 
     <script type="text/ng-template" id="/posts.html">
