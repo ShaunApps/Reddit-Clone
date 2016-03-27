@@ -154,9 +154,11 @@ app.config([
 app.controller('MainCtrl', [
   '$scope',
   'posts',
-  function($scope, posts){
+  'auth',
+  function($scope, posts, auth){
     $scope.test = 'Hello world!';
     $scope.posts = posts.posts[$stateParams.id];
+    $scope.isLoggedIn = auth.isLoggedIn;
 
     $scope.addPost = function(){
       if(!$scope.title || $scope.title === '') { return; }
@@ -177,8 +179,10 @@ app.controller('MainCtrl', [
     '$scope',
     'posts',
     'post',
-    function($scope, posts, post){
+    'auth',
+    function($scope, posts, post, auth){
       $scope.post = post;
+      $scope.isLoggedIn = auth.isLoggedIn;
       $scope.addComment = function(){
         if($scope.body === '') { return; }
         posts.addComment(post._id, {
